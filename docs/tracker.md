@@ -1,7 +1,7 @@
 # Attendie: Tracker
 
 > Single place to see what was done, when and by whom. Update this file with every change.
-> Current version: **v0.0 (Planning)** | Current phase: **Planning complete, Phase 1 not started** | Last updated: 2026-10-12
+> Current version: **v0.1 (Foundation and cleanup)** | Current phase: **Phase 1 done** | Last updated: 2026-10-12
 
 **Who column:** `Owner` = project owner, `Claude` = AI assistant, `Portal owner` = EkLink maintainer.
 
@@ -10,7 +10,7 @@
 | Phase | Version | Status | Started | Finished |
 |---|---|---|---|---|
 | Planning | v0.0 | Done | 2026-10-12 | 2026-10-12 |
-| 1. Foundation and cleanup | v0.1 | Not started | | |
+| 1. Foundation and cleanup | v0.1 | Done | 2026-10-12 | 2026-10-12 |
 | 2. SSO login | v0.2 | Not started | | |
 | 3. Database, directory, roles | v0.3 | Not started | | |
 | 4. Port existing features | v0.4 | Not started | | |
@@ -35,6 +35,12 @@ Newest at the bottom. Add a row for every piece of work.
 | L006 | 2026-10-12 | Portal owner (via Owner) | Planning | Shared EkLink integration details and `integration-guide.md` | SSO design finalised |
 | L007 | 2026-10-12 | Owner | Planning | Decided organisations get separate accounts from students | Recorded as D13 |
 | L008 | 2026-10-12 | Claude | Planning | Wrote `goal.md`, `prd.md`, `rules and regulations.md`, `plan.md`, `architecture.md`, `tracker.md` | Planning documents complete |
+| L009 | 2026-10-12 | Codex | Phase 1 | Added the Next.js app shell, app/admin route layouts, navbar and placeholder pages for dashboard, notifications, inbox, events, organisations, reports, admin pages and picker | Home redirects to `/dashboard`; placeholders identify their future phase |
+| L010 | 2026-10-12 | Codex | Phase 1 | Rewrote the reference searchable combobox and date utility as strict TypeScript for Next.js | Added `components/ui/SearchableCombobox.tsx` and `lib/utils/dates.ts` only |
+| L011 | 2026-10-12 | Codex | Phase 1 | Added security headers in `next.config.ts` | CSP, `X-Content-Type-Options`, `Referrer-Policy` and `X-Frame-Options: DENY` are returned locally |
+| L012 | 2026-10-12 | Codex | Phase 1 | Removed currently unused direct packages and excluded the read-only reference app from active typecheck/lint scope | `jose` and `zod` direct dependencies removed for now; reference remains read-only |
+| L013 | 2026-10-12 | Codex | Phase 1 | Verified Phase 1 cleanup checks | `npm run typecheck`, `npm run lint`, `npm run build` pass; local `/dashboard` returns 200 |
+| L014 | 2026-10-12 | Codex | Phase 1 | Updated Phase 1 documentation | Phase 1 checklist marked complete; plan now states portals are ported in Phases 4 to 6 |
 
 ## 3. Decisions log
 
