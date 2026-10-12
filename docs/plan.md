@@ -63,14 +63,14 @@ Rebuild the existing TrackMyAttendance app (React + Vite + Firebase) as **Attend
 - Create the Next.js project (TypeScript, Tailwind, strict mode).
 - Move reusable components and utilities from the zip.
 - Remove: Firebase config and rules, `clear_database` script, hardcoded passwords and demo credentials, role switcher, localStorage session, Universal Student account, unused packages.
-- Split `AdminPortal.tsx` into small components.
+- Port portals in Phases 4 to 6, split into small components as each feature moves to the new stack.
 - Set up folder structure, linting, `.env.example`, `.gitignore`.
 
 **Exit checklist**
-- [ ] App builds and runs on `localhost:3000`.
-- [ ] No Firebase or hardcoded password text remains in the repo.
-- [ ] No file over about 400 lines without a reason.
-- [ ] `.env.example` lists every variable and no real values.
+- [x] App builds and runs on `localhost:3000`.
+- [x] No Firebase or hardcoded password text remains in the repo.
+- [x] No file over about 400 lines without a reason.
+- [x] `.env.example` lists every variable and no real values.
 
 ### Phase 2: SSO login (v0.2)
 
