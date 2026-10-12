@@ -128,3 +128,8 @@ Rules:
 2. Claude starts **Phase 1: Foundation and cleanup** (needs no external input).
 3. In parallel, Owner asks the portal owner for B1 and O2.
 4. Owner prepares the Excel data (B4) and the Supabase project (B3) before Phase 3.
+
+
+| L015 | 2026-10-12 | Owner | Phase 1 | Restored `.env.example` defaults (APP_URL, EKLINK_URL, EKLINK_REDIRECT_URI) after review | Commit 8a1f2ef |
+| L016 | 2026-10-12 | Claude | Phase 1 | Reviewed Phase 1 diff, `next.config.ts`, `package.json` and tracker | Passed with notes N1 (webpack flag), N2 (CSP too loose, fix in Phase 9), N3 (tracker gaps) |
+| L017 | 2026-10-12 | Owner | Phase 1 | Pushed `phase-1/cleanup` to GitHub | PR pending |
