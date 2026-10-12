@@ -24,4 +24,4 @@ Rules in short:
 - Browser never talks to Supabase.
 - Do not build the approval workflow. Do not connect TemplateOS.
 - After each change, update docs/tracker.md.
-- The reference/ folder is the old app, for reading only. Never commit it and never copy Firebase config from it.
+- The reference/ folder is the old app, for reading only. Never commit it and never copy old backend config from it.
