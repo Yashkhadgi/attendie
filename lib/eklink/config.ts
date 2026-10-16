@@ -7,7 +7,10 @@ import { decodeSecret, deriveEncryptionKey } from "@/lib/session/crypto";
 const envSchema = z.object({
   APP_URL: z.string().url(),
   EKLINK_URL: z.string().url(),
-  EKLINK_ISSUER: z.string().url().optional(),
+  EKLINK_ISSUER: z.preprocess(
+    (value) => (value === "" ? undefined : value),
+    z.string().url().optional(),
+  ),
   EKLINK_CLIENT_ID: z.string().min(1),
   EKLINK_CLIENT_SECRET: z.string().min(1),
   EKLINK_REDIRECT_URI: z.string().url(),

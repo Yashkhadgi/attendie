@@ -47,10 +47,6 @@ export function safeEqual(a: string, b: string): boolean {
   return timingSafeEqual(left, right);
 }
 
-export function stateDigest(state: string): string {
-  return createHash("sha256").update(state).digest("base64url");
-}
-
 export async function sealSessionPayload(
   payload: SessionPayload,
   key: Uint8Array,

@@ -25,10 +25,12 @@ export function proxy(request: NextRequest) {
   }
 
   if (!hasSessionCookie) {
-    const loginUrl = new URL(
-      "/auth/login",
-      process.env.APP_URL || "http://localhost:3000",
-    );
+    const appUrl = process.env.APP_URL;
+    if (!appUrl) {
+      return new NextResponse("Server configuration error", { status: 500 });
+    }
+
+    const loginUrl = new URL("/auth/login", appUrl);
     loginUrl.searchParams.set(
       "next",
       sanitizeNextPath(`${request.nextUrl.pathname}${request.nextUrl.search}`),

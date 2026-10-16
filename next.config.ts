@@ -47,6 +47,15 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: "/auth/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store",
+          },
+        ],
+      },
     ];
   },
 };
