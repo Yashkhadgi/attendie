@@ -8,7 +8,7 @@ type TokenResponse = {
 
 async function postTokenRequest(
   endpoint: string,
-  body: URLSearchParams,
+  body: Record<string, string>,
   config: EklinkConfig,
   fetchImpl: typeof fetch,
 ): Promise<TokenResponse> {
@@ -18,11 +18,11 @@ async function postTokenRequest(
   try {
     const response = await fetchImpl(new URL(endpoint, config.eklinkUrl), {
       method: "POST",
-      body,
+      body: JSON.stringify(body),
       redirect: "manual",
       signal: controller.signal,
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
     });
 
@@ -46,13 +46,13 @@ export async function exchangeAuthorizationCode(
   config = getEklinkConfig(),
   fetchImpl: typeof fetch = fetch,
 ): Promise<TokenResponse> {
-  const body = new URLSearchParams({
+  const body = {
     grant_type: "authorization_code",
     code,
     redirect_uri: config.redirectUri,
     client_id: config.clientId,
     client_secret: config.clientSecret,
-  });
+  };
 
   return postTokenRequest("/token", body, config, fetchImpl);
 }

@@ -9,25 +9,29 @@ type RefreshResponse = {
 export async function refreshAccessToken(
   accessToken: string,
   config: EklinkConfig = getEklinkConfig(),
+  fetchImpl: typeof fetch = fetch,
 ): Promise<RefreshResponse> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10_000);
-  const body = new URLSearchParams({
+  const body = {
     client_id: config.clientId,
     client_secret: config.clientSecret,
     access_token: accessToken,
-  });
+  };
 
   try {
-    const response = await fetch(new URL("/token/refresh", config.eklinkUrl), {
-      method: "POST",
-      body,
-      redirect: "manual",
-      signal: controller.signal,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+    const response = await fetchImpl(
+      new URL("/token/refresh", config.eklinkUrl),
+      {
+        method: "POST",
+        body: JSON.stringify(body),
+        redirect: "manual",
+        signal: controller.signal,
+        headers: {
+          "Content-Type": "application/json",
+        },
       },
-    });
+    );
 
     if (!response.ok) {
       throw new Error("Refresh failed");
