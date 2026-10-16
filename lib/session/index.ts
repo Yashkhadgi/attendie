@@ -28,8 +28,8 @@ function sessionMaxAge(exp: number, now = Math.floor(Date.now() / 1000)): number
 export async function createSessionCookieValue(
   claims: EklinkClaims,
   accessToken: string,
+  sessionKey = getEklinkConfig().sessionKey,
 ): Promise<{ value: string; maxAge: number }> {
-  const config = getEklinkConfig();
   const payload = createSessionPayload(claims, accessToken);
   const maxAge = sessionMaxAge(payload.exp);
 
@@ -38,7 +38,7 @@ export async function createSessionCookieValue(
   }
 
   return {
-    value: await sealSessionPayload(payload, config.sessionKey),
+    value: await sealSessionPayload(payload, sessionKey),
     maxAge,
   };
 }
@@ -47,8 +47,13 @@ export async function setSessionCookie(
   response: NextResponse,
   claims: EklinkClaims,
   accessToken: string,
+  sessionKey?: Uint8Array,
 ): Promise<void> {
-  const { value, maxAge } = await createSessionCookieValue(claims, accessToken);
+  const { value, maxAge } = await createSessionCookieValue(
+    claims,
+    accessToken,
+    sessionKey,
+  );
   response.cookies.set(getSessionCookieName(), value, baseCookieOptions(maxAge));
 }
 

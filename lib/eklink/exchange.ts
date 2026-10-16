@@ -10,12 +10,13 @@ async function postTokenRequest(
   endpoint: string,
   body: URLSearchParams,
   config: EklinkConfig,
+  fetchImpl: typeof fetch,
 ): Promise<TokenResponse> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10_000);
 
   try {
-    const response = await fetch(new URL(endpoint, config.eklinkUrl), {
+    const response = await fetchImpl(new URL(endpoint, config.eklinkUrl), {
       method: "POST",
       body,
       redirect: "manual",
@@ -43,6 +44,7 @@ async function postTokenRequest(
 export async function exchangeAuthorizationCode(
   code: string,
   config = getEklinkConfig(),
+  fetchImpl: typeof fetch = fetch,
 ): Promise<TokenResponse> {
   const body = new URLSearchParams({
     grant_type: "authorization_code",
@@ -52,5 +54,5 @@ export async function exchangeAuthorizationCode(
     client_secret: config.clientSecret,
   });
 
-  return postTokenRequest("/token", body, config);
+  return postTokenRequest("/token", body, config, fetchImpl);
 }
