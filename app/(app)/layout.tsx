@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import { Suspense, type ReactNode } from "react";
 
-import { Navbar } from "@/components/Navbar";
+import { SessionGate } from "@/lib/auth/guards";
 
 type AppLayoutProps = {
   children: ReactNode;
@@ -8,9 +8,8 @@ type AppLayoutProps = {
 
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <>
-      <Navbar />
-      <main className="flex-1">{children}</main>
-    </>
+    <Suspense fallback={null}>
+      <SessionGate>{children}</SessionGate>
+    </Suspense>
   );
 }
