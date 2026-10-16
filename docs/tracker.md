@@ -51,6 +51,7 @@ Newest at the bottom. Add a row for every piece of work.
 | L022 | 2026-10-16 | Codex | Phase 2 | Audited authentication dependencies and package lock | New runtime packages are `jose`, `zod` and `server-only`; Vitest is the required development test runner; no existing locked package version changed |
 | L023 | 2026-10-16 | Codex | Phase 2 | Added isolated Vitest coverage for callback failures, JWT validation, redirects, sealed sessions, cookie attributes, logout and API guards | 31 tests pass without network access or real credentials |
 | L024 | 2026-10-16 | Codex | Phase 2 | Retained webpack for the package build command after testing the default Next.js builder | Plain `npx next build` hit a Turbopack CSS worker port-binding failure in the restricted environment; `next build --webpack` completes |
+| L025 | 2026-10-16 | Codex | Phase 2 | Ran the final Phase 2 verification suite | 31/31 tests, typecheck and lint pass; webpack production build passes; plain Turbopack build still fails on host port binding |
 
 ## 3. Decisions log
 
