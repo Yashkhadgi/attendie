@@ -54,6 +54,7 @@ export const config = {
     "/organisations/:path*",
     "/reports/:path*",
     "/admin/:path*",
+    "/picker/:path*",
     "/api/v1/:path*",
   ],
 };
