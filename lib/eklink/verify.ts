@@ -14,13 +14,27 @@ type VerifyAccessTokenOptions = {
   keyResolver?: JWTVerifyGetKey;
 };
 
+const remoteKeyResolvers = new Map<string, JWTVerifyGetKey>();
+
+function getRemoteKeyResolver(url: URL): JWTVerifyGetKey {
+  const cacheKey = url.toString();
+  const existing = remoteKeyResolvers.get(cacheKey);
+  if (existing) {
+    return existing;
+  }
+
+  const resolver = createRemoteJWKSet(url);
+  remoteKeyResolvers.set(cacheKey, resolver);
+  return resolver;
+}
+
 export async function verifyAccessToken(
   accessToken: string,
   options: VerifyAccessTokenOptions = {},
 ): Promise<EklinkClaims> {
   const config = options.config ?? getEklinkConfig();
   const jwksUrl = new URL("/.well-known/jwks.json", config.eklinkUrl);
-  const keyResolver = options.keyResolver ?? createRemoteJWKSet(jwksUrl);
+  const keyResolver = options.keyResolver ?? getRemoteKeyResolver(jwksUrl);
 
   const { payload } = await jwtVerify(accessToken, keyResolver, {
     issuer: config.issuer,
