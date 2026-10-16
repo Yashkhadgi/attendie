@@ -14,6 +14,8 @@ export function SessionKeepAlive() {
       });
 
       if (isMounted && response.status === 401) {
+        // Use a full navigation so the browser enters the login route handler.
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination
         window.location.assign("/auth/login");
       }
     }
