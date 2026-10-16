@@ -35,11 +35,14 @@ function tokenFetch(token: string): typeof fetch {
   ) as unknown as typeof fetch;
 }
 
-async function oauthCookie(state = "expected-state") {
+async function oauthCookie(
+  state = "expected-state",
+  next = "/dashboard",
+) {
   return sealOAuthState(
     {
       state,
-      next: "/dashboard",
+      next,
       exp: Math.floor(Date.now() / 1000) + 600,
     },
     testConfig.sessionKey,
@@ -125,6 +128,24 @@ describe("OAuth callback", () => {
     );
     expect(setCookie).toContain(`${getSessionCookieName()}=`);
     expectOAuthCookieCleared(response);
+  });
+
+  it("sanitizes the sealed next path again before redirecting", async () => {
+    const response = await handleOAuthCallback(
+      await callbackRequest(
+        "code=code&state=expected-state",
+        await oauthCookie("expected-state", "//evil.example"),
+      ),
+      {
+        config: testConfig,
+        fetch: tokenFetch(await accessToken()),
+        keyResolver,
+      },
+    );
+
+    expect(response.headers.get("location")).toBe(
+      "https://attendie.test/dashboard",
+    );
   });
 
   it("redirects an unknown role to no-access without a session cookie", async () => {

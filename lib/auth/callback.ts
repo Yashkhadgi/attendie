@@ -4,7 +4,7 @@ import type { JWTVerifyGetKey } from "jose";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { authErrorUrl } from "@/lib/auth/redirects";
+import { authErrorUrl, sanitizeNextPath } from "@/lib/auth/redirects";
 import { isAllowedEklinkRole } from "@/lib/eklink/claims";
 import { getEklinkConfig, type EklinkConfig } from "@/lib/eklink/config";
 import { exchangeAuthorizationCode } from "@/lib/eklink/exchange";
@@ -78,7 +78,7 @@ export async function handleOAuthCallback(
     }
 
     const response = clearOAuthCookie(
-      redirectFromConfig(config, oauthState.next),
+      redirectFromConfig(config, sanitizeNextPath(oauthState.next)),
     );
     await setSessionCookie(
       response,
