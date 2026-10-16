@@ -52,6 +52,11 @@ Newest at the bottom. Add a row for every piece of work.
 | L023 | 2026-10-16 | Codex | Phase 2 | Added isolated Vitest coverage for callback failures, JWT validation, redirects, sealed sessions, cookie attributes, logout and API guards | 31 tests pass without network access or real credentials |
 | L024 | 2026-10-16 | Codex | Phase 2 | Retained webpack for the package build command after testing the default Next.js builder | Plain `npx next build` hit a Turbopack CSS worker port-binding failure in the restricted environment; `next build --webpack` completes |
 | L025 | 2026-10-16 | Codex | Phase 2 | Ran the final Phase 2 verification suite | 31/31 tests, typecheck and lint pass; webpack production build passes; plain Turbopack build still fails on host port binding |
+| L026 | 2026-10-16 | Codex | Phase 2 | Corrected EkLink code exchange and refresh requests to use JSON bodies | Contract tests verify POST, application/json, exact endpoint paths and exact request keys with injected fetch functions |
+| L027 | 2026-10-16 | Codex | Phase 2 | Revalidated the sealed callback `next` path immediately before redirecting | A test proves an external destination falls back to `/dashboard` |
+| L028 | 2026-10-16 | Codex | Phase 2 | Added the standalone picker page to proxy matching and server session enforcement | `/picker` now has both the cookie precheck and verified page-level guard |
+| L029 | 2026-10-16 | Codex | Phase 2 | Added filesystem-based guard coverage testing | The test fails when a protected app/admin/picker page or API route omits the shared server guard import |
+| L030 | 2026-10-16 | Codex | Phase 2 | Clarified `EKLINK_ISSUER` configuration guidance | `.env.example` documents the empty-value fallback and verified-token issuer check |
 
 ## 3. Decisions log
 
