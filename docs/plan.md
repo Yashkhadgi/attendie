@@ -85,13 +85,13 @@ Rebuild the existing TrackMyAttendance app (React + Vite + Firebase) as **Attend
 - Show the signed-in user's name and role.
 
 **Exit checklist** (from the EkLink guide)
-- [ ] Expired token rejected.
+- [x] Expired token rejected.
 - [ ] Reused code rejected.
-- [ ] Wrong role gets a no-access page.
+- [x] Wrong role gets a no-access page.
 - [ ] Tampered `redirect_uri` rejected.
 - [ ] Inactive user cannot sign in or refresh.
-- [ ] Bad or missing `state` rejected.
-- [ ] No token in `localStorage` or readable by JavaScript.
+- [x] Bad or missing `state` rejected.
+- [x] No token in `localStorage` or readable by JavaScript.
 
 ### Phase 3: Database, directory, roles (v0.3)
 
@@ -184,6 +184,7 @@ Rebuild the existing TrackMyAttendance app (React + Vite + Firebase) as **Attend
 
 - Security review against `rules and regulations.md`.
 - Security headers, CSP, CSRF review, dependency audit.
+- Tighten CSP with request nonces and remove development-only unsafe directives.
 - Decide open question O7 (per-user RLS tokens).
 - Mobile and performance checks.
 - Pilot with one class and a few faculty and one club.

@@ -1,9 +1,9 @@
 # Attendie: Tracker
 
 > Single place to see what was done, when and by whom. Update this file with every change.
-> Current version: **v0.1 (Foundation and cleanup)** | Current phase: **Phase 1 done** | Last updated: 2026-10-12
+> Current version: **v0.2 (SSO login)** | Current phase: **Phase 2 in progress** | Last updated: 2026-10-16
 
-**Who column:** `Owner` = project owner, `Claude` = AI assistant, `Portal owner` = EkLink maintainer.
+**Who column:** `Owner` = project owner, `Claude` or `Codex` = AI assistant, `Portal owner` = EkLink maintainer.
 
 ## 1. Status at a glance
 
@@ -11,7 +11,7 @@
 |---|---|---|---|---|
 | Planning | v0.0 | Done | 2026-10-12 | 2026-10-12 |
 | 1. Foundation and cleanup | v0.1 | Done | 2026-10-12 | 2026-10-12 |
-| 2. SSO login | v0.2 | Not started | | |
+| 2. SSO login | v0.2 | In progress | 2026-10-16 | |
 | 3. Database, directory, roles | v0.3 | Not started | | |
 | 4. Port existing features | v0.4 | Not started | | |
 | 5. Notification core | v0.5 | Not started | | |
@@ -41,6 +41,16 @@ Newest at the bottom. Add a row for every piece of work.
 | L012 | 2026-10-12 | Codex | Phase 1 | Removed currently unused direct packages and excluded the read-only reference app from active typecheck/lint scope | `jose` and `zod` direct dependencies removed for now; reference remains read-only |
 | L013 | 2026-10-12 | Codex | Phase 1 | Verified Phase 1 cleanup checks | `npm run typecheck`, `npm run lint`, `npm run build` pass; local `/dashboard` returns 200 |
 | L014 | 2026-10-12 | Codex | Phase 1 | Updated Phase 1 documentation | Phase 1 checklist marked complete; plan now states portals are ported in Phases 4 to 6 |
+| L015 | 2026-10-12 | Owner | Phase 1 | Restored `.env.example` defaults (APP_URL, EKLINK_URL, EKLINK_REDIRECT_URI) after review | Commit 8a1f2ef |
+| L016 | 2026-10-12 | Claude | Phase 1 | Reviewed Phase 1 diff, `next.config.ts`, `package.json` and tracker | Passed with notes N1 (webpack flag), N2 (CSP too loose, fix in Phase 9), N3 (tracker gaps) |
+| L017 | 2026-10-12 | Owner | Phase 1 | Pushed `phase-1/cleanup` to GitHub | PR pending |
+| L018 | 2026-10-16 | Codex | Phase 2 | Added EkLink authorization-code login, callback, token exchange and JWT verification with strict issuer, audience, expiry and algorithm checks | Callback dependencies are injectable for local tests; remote JWKS resolvers are reused per URL |
+| L019 | 2026-10-16 | Codex | Phase 2 | Added encrypted HttpOnly session and OAuth cookies, refresh and POST-only logout routes | Session cookies use SameSite=Lax and Secure in production; auth responses are no-store |
+| L020 | 2026-10-16 | Codex | Phase 2 | Added proxy prechecks plus server session guards to protected layouts, every protected page and every existing API handler | Protected layouts use Suspense-compatible async session gates; API requests without a session return 401 |
+| L021 | 2026-10-16 | Codex | Phase 2 | Added signed-in identity display, session keepalive, generic auth error, signed-out and no-access screens | No local login form, role switcher or browser-readable token storage was added |
+| L022 | 2026-10-16 | Codex | Phase 2 | Audited authentication dependencies and package lock | New runtime packages are `jose`, `zod` and `server-only`; Vitest is the required development test runner; no existing locked package version changed |
+| L023 | 2026-10-16 | Codex | Phase 2 | Added isolated Vitest coverage for callback failures, JWT validation, redirects, sealed sessions, cookie attributes, logout and API guards | 31 tests pass without network access or real credentials |
+| L024 | 2026-10-16 | Codex | Phase 2 | Retained webpack for the package build command after testing the default Next.js builder | Plain `npx next build` hit a Turbopack CSS worker port-binding failure in the restricted environment; `next build --webpack` completes |
 
 ## 3. Decisions log
 
@@ -124,12 +134,6 @@ Rules:
 
 ## 8. Next steps
 
-1. Owner reviews the six documents and answers the open questions.
-2. Claude starts **Phase 1: Foundation and cleanup** (needs no external input).
-3. In parallel, Owner asks the portal owner for B1 and O2.
-4. Owner prepares the Excel data (B4) and the Supabase project (B3) before Phase 3.
-
-
-| L015 | 2026-10-12 | Owner | Phase 1 | Restored `.env.example` defaults (APP_URL, EKLINK_URL, EKLINK_REDIRECT_URI) after review | Commit 8a1f2ef |
-| L016 | 2026-10-12 | Claude | Phase 1 | Reviewed Phase 1 diff, `next.config.ts`, `package.json` and tracker | Passed with notes N1 (webpack flag), N2 (CSP too loose, fix in Phase 9), N3 (tracker gaps) |
-| L017 | 2026-10-12 | Owner | Phase 1 | Pushed `phase-1/cleanup` to GitHub | PR pending |
+1. Owner and portal owner complete B1 and B2 without sharing credentials in chat.
+2. Verify reused-code, redirect URI and inactive-user behavior against the registered EkLink application.
+3. Owner prepares the Excel data (B4) and the Supabase project (B3) before Phase 3.
