@@ -57,6 +57,7 @@ Newest at the bottom. Add a row for every piece of work.
 | L028 | 2026-10-16 | Codex | Phase 2 | Added the standalone picker page to proxy matching and server session enforcement | `/picker` now has both the cookie precheck and verified page-level guard |
 | L029 | 2026-10-16 | Codex | Phase 2 | Added filesystem-based guard coverage testing | The test fails when a protected app/admin/picker page or API route omits the shared server guard import |
 | L030 | 2026-10-16 | Codex | Phase 2 | Clarified `EKLINK_ISSUER` configuration guidance | `.env.example` documents the empty-value fallback and verified-token issuer check |
+| L031 | 2026-10-16 | Codex | Phase 2 | Ran verification after the EkLink protocol and route-guard corrections | 35/35 tests, typecheck, lint and webpack production build pass; `/picker` partial-prerenders with a streamed session check |
 
 ## 3. Decisions log
 
